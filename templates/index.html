@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            display: grid;
+            gap: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+        <form action="{{ url_for('predict') }}" method="post">
+            <div>
+                <label for="SquareFeet">Square Feet:</label>
+                <input type="number" id="SquareFeet" name="SquareFeet" required min="100">
+            </div>
+            <div>
+                <label for="Bedrooms">Bedrooms:</label>
+                <input type="number" id="Bedrooms" name="Bedrooms" required min="1">
+            </div>
+            <div>
+                <label for="Bathrooms">Bathrooms:</label>
+                <input type="number" id="Bathrooms" name="Bathrooms" required min="1">
+            </div>
+            <div>
+                <label for="Neighborhood">Neighborhood:</label>
+                <select id="Neighborhood" name="Neighborhood" required>
+                    <option value="">Select a neighborhood</option>
+                    <option value="Rural">Rural</option>
+                    <option value="Suburb">Suburb</option>
+                    <option value="Urban">Urban</option>
+                </select>
+            </div>
+            <div>
+                <label for="YearBuilt">Year Built:</label>
+                <input type="number" id="YearBuilt" name="YearBuilt" required min="1800" max="2024">
+            </div>
+            <input type="submit" value="Predict Price">
+        </form>
+        {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
