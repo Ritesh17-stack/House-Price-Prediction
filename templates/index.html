@@ -65,6 +65,7 @@
 <body>
     <div class="container">
         <h1>House Price Prediction</h1>
+        <!-- The action attribute specifies the URL where the form data will be sent. In this case, it is set to the value of url_for('predict'), which is a Flask function that generates a URL for a specific route. The method attribute is set to "post", which means that the form data will be sent using the HTTP POST method. -->
         <form action="{{ url_for('predict') }}" method="post">
             <div>
                 <label for="SquareFeet">Square Feet:</label>
@@ -93,6 +94,7 @@
             </div>
             <input type="submit" value="Predict Price">
         </form>
+        <!--  It checks if the variable prediction_text has a value, and if it does, it displays the content of prediction_text -->
         {% if prediction_text %}
         <div class="result">
             {{ prediction_text }}

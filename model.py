@@ -12,17 +12,19 @@ dataset = pd.read_csv('housing_price_dataset.csv')
 X = dataset.iloc[:, :-1]
 y = dataset.iloc[:, -1]
 
-# Create preprocessing steps
-preprocessor = ColumnTransformer(
+# preprocessing steps
+# In OneHotEncoder, drop='first' parameter drops the first category for each feature. This helps avoid multicollinearity in the dataset when using one-hot encoding.
+ct = ColumnTransformer(
     transformers=[
         ('num', StandardScaler(), ['SquareFeet', 'Bedrooms', 'Bathrooms', 'YearBuilt']),
         ('cat', OneHotEncoder(drop='first'), ['Neighborhood'])
     ])
 
-# Create a pipeline
-# This combines preprocessing steps with Linear Regression Model
+# Creating a pipeline
+# preprocessor: This step applies column transformations to the input data using the ColumnTransformer class. It scales numerical columns using StandardScaler and one-hot encodes categorical columns using OneHotEncoder.
+# regressor: This step trains a linear regression model using the LinearRegression class.This combines preprocessing steps with Linear Regression Model
 model = Pipeline([
-    ('preprocessor', preprocessor),
+    ('preprocessor', ct),
     ('regressor', LinearRegression())
 ])
 
